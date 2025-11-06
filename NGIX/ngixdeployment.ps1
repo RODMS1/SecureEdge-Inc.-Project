@@ -11,6 +11,14 @@
 #>
 
 # ---------------------------
+# Administrative Priveleges Check
+# ---------------------------
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "This script requires administrator privileges. Please run PowerShell as an Administrator." -ForegroundColor Red
+    exit 1
+}
+
+# ---------------------------
 # Configuration Variables
 # ---------------------------
 $SiteDomain = "docs.secureedge.local"           # Internal domain name
@@ -112,21 +120,50 @@ if (-not (Select-String -Path $HostsPath -Pattern $SiteDomain -Quiet)) {
 }
 
 # ---------------------------
-# Step 6: Start Nginx
+# Step 6: Stop Existing Nginx Processes
 # ---------------------------
-Write-Host "Starting Nginx service..." -ForegroundColor Cyan
-Start-Process -FilePath "$NginxRoot\nginx.exe"
+$nginxProcesses = Get-Process nginx -ErrorAction SilentlyContinue
+if ($nginxProcesses) {
+    Write-Host "Stopping existing Nginx processes..." -ForegroundColor Yellow
+    # Change directory to Nginx root to ensure correct relative paths for logs/conf
+    Push-Location $NginxRoot
+    Start-Process -FilePath ".\nginx.exe" -ArgumentList "-s", "stop" -Wait
+    Pop-Location
+    Start-Sleep -Seconds 2 # Give it a moment to release the port
+}
+
+# ---------------------------
+# Step 7: Start Nginx
+# ---------------------------
+Write-Host "Starting Nginx..." -ForegroundColor Cyan
+# Change directory to ensure logs are written to the correct relative path
+Push-Location $NginxRoot
+Start-Process -FilePath ".\nginx.exe"
+Pop-Location
 
 Start-Sleep -Seconds 3
 
 # ---------------------------
-# Step 7: Verify Operation
+# Step 8: Verify Operation
 # ---------------------------
-$nginxProc = Get-Process nginx -ErrorAction SilentlyContinue
-if ($nginxProc) {
-    Write-Host "Deployment successful. Access the portal at: http://$SiteDomain" -ForegroundColor Green
+$ErrorLogPath = "$NginxRoot\logs\error.log"
+if (Test-Path $ErrorLogPath) {
+    $errorContent = Get-Content $ErrorLogPath | Select-String "\[emerg\]"
+    if ($errorContent) {
+        Write-Host "Failed to start Nginx. Error found in logs:" -ForegroundColor Red
+        Write-Host $errorContent -ForegroundColor Red
+    } else {
+        Write-Host "Deployment successful. Access the portal at: http://$SiteDomain" -ForegroundColor Green
+    }
 } else {
-    Write-Host "Failed to start Nginx. Please check manually." -ForegroundColor Red
+    # If the log file doesn't exist, we can assume it started correctly, as Nginx creates it on launch.
+    # However, we still check the process as a fallback.
+    $nginxProc = Get-Process nginx -ErrorAction SilentlyContinue
+    if ($nginxProc) {
+        Write-Host "Deployment successful. Access the portal at: http://$SiteDomain" -ForegroundColor Green
+    } else {
+        Write-Host "Failed to start Nginx, and error log was not found. Please check manually." -ForegroundColor Red
+    }
 }
 
 Write-Host "----------------------------------------------------------"
