@@ -13,21 +13,6 @@ This is a single-file, cross-platform network utility script written in Python. 
 - **Network Traffic Monitoring:** Measures network traffic over a specified duration (requires the `psutil` library).
 
 ## Installation and Usage
-# SECURITY EDGE NETWORK TOOL
-
-This is a single-file, cross-platform network utility script written in Python. It provides a simple, interactive command-line menu to perform common network tasks. The tool is designed to be easy to use and requires minimal dependencies.
-
-## Features
-
-- **Cross-Platform:** Works on Windows, macOS, and Linux.
-- **Interactive Menu:** An easy-to-use menu for selecting different network tasks.
-- **Colored Output:** Uses colored terminal output for better readability (with a fallback for unsupported terminals).
-- **Concurrent Port Scanning:** Utilizes a thread pool to perform fast TCP port scans.
-- **Device Discovery:** Discovers devices on the local network using the ARP table and presents them in a clean, tabulated format.
-- **Configurable Ping:** Allows you to specify the number of ping packets to send.
-- **Network Traffic Monitoring:** Measures network traffic over a specified duration (requires the `psutil` library).
-
-## Installation and Usage
 
 ### Automated Setup (Windows)
 
