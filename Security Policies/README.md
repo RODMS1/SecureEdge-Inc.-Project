@@ -18,10 +18,10 @@
 4) Reset account lockout counter after: 15 minutes
 
 
-
 ## Access Policies: Access policies will be defined to ensure the principle of least privilege.
 
-#### A) Change System Time: Only the IT manager can change the System Time. This can prevent several issues such as computers that belong to a domain not be able to authenticate themselves, time stamps on event log entries could be made inaccurate, time stamps on files and folders that are created or modified could be incorrect or other critical issues.
+#### A) Change System Time: Only the IT manager can change the System Time. 
+This can prevent several issues such as computers that belong to a domain not be able to authenticate themselves, time stamps on event log entries could be made inaccurate, time stamps on files and folders that are created or modified could be incorrect or other critical issues.
   
 #### B) Disabled Windows Installer: All users and employees will only not be able to install any software via Windows Installer. Only applications previously approved by the IT team. Executables and Scripts can still be runned. 
 
