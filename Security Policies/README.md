@@ -1,5 +1,7 @@
-# Security Policies
-## Password Policies: Strong password policies will be configured to enforce strong authentication measures.
+# Security Policies:
+Below the policies applied as default for the company. The final pdf with all recommnendations, frameworks and objectives can be found on the Documents folder.
+
+### Password Policies: Strong password policies will be configured to enforce strong authentication measures.
 
 
 #### A) Password Policy: Users will have to set a password on first log in, users will have a 30 day period for each password, different from the previous 8 passwords (when applied) and use special characters to enhance security.
@@ -18,7 +20,7 @@
 4) Reset account lockout counter after: 15 minutes
 
 
-## Access Policies: Access policies will be defined to ensure the principle of least privilege.
+### Access Policies: Access policies will be defined to ensure the principle of least privilege.
 
 #### A) Change System Time: Only the IT manager can change the System Time. 
 This can prevent several issues such as computers that belong to a domain not be able to authenticate themselves, time stamps on event log entries could be made inaccurate, time stamps on files and folders that are created or modified could be incorrect or other critical issues.
