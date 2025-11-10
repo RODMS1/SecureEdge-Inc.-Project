@@ -1,6 +1,6 @@
 # All documents and references
 
-### Final pdf document
+### All future publications regarding security policies will be uploaded here
 
 ### References and Documents:
 
