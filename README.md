@@ -1,6 +1,7 @@
-# SecureEdge Inc. Project (Mid project for Intensive Cybersecurity Course 2025/26)
+# SecureEdge Inc. Project
 
-This repository contains the documentation and scripts for the SecureEdge Inc. project.|
+This repository contains the documentation and scripts for the SecureEdge Inc. project.
+Mid project for ICC:03 (Intesive CyberSecurity Course 2025/26)
 
 
 ## Project Overview
